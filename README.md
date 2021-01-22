@@ -8,7 +8,7 @@
 
 ## :bulb: Objetivo do projeto
 
-Calcula com funcionalidades simples, porém com um designer moderno utilizando técnicas de neumorphism.
+Calculadora com funcionalidades simples, porém com um designer moderno utilizando técnicas de neumorphism.
 
 ## :computer: Técnologias
 

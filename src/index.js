@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
@@ -8,29 +8,89 @@ import DrawerMenu from './components/DrawerMenu'
 import styles from './styles'
 
 export default function index() {
-  const [numberOne, setNumberOne] = useState(0)
-  const [numberTwo, setNumberTwo] = useState(0)
+  const [numberOne, setNumberOne] = useState(false)
+  const [numberTwo, setNumberTwo] = useState(false)
   const [operator, setOperator] = useState(false)
   const [resultCalc, setResultCalc] = useState(0)
+  const [showDisplay, setShowDisplay] = useState('')
 
 
   function handleNumberButton(buttonPressed) {
     if(operator) {
-      setNumberTwo(`${numberTwo}${buttonPressed}`)
+      setNumberTwo(numberTwo ? `${numberTwo}${buttonPressed}` : `${buttonPressed}`)
     } else {
-      setNumberOne(`${numberOne}${buttonPressed}`)
+      setNumberOne(numberOne ? `${numberOne}${buttonPressed}` : `${buttonPressed}`)
     }
   }
 
   function handleOperationButton(buttonPressed) {
-    setOperator(buttonPressed)
+    if(numberOne && operator && numberTwo) {
+      switch (buttonPressed) {
+        case '+':
+          setResultCalc(parseFloat(numberOne) + parseFloat(numberTwo))
+          setNumberOne(parseFloat(numberOne) + parseFloat(numberTwo))
+        break;
+  
+        case '-':
+          setResultCalc(parseFloat(numberOne) - parseFloat(numberTwo))
+          setNumberOne(parseFloat(numberOne) - parseFloat(numberTwo))
+        break;
+  
+        case '*':
+          setResultCalc(parseFloat(numberOne) * parseFloat(numberTwo))
+          setNumberOne(parseFloat(numberOne) * parseFloat(numberTwo))
+        break;
+  
+        case '/':
+          setResultCalc(parseFloat(numberOne) / parseFloat(numberTwo))
+          setNumberOne(parseFloat(numberOne) / parseFloat(numberTwo))
+        break;
+      }
+
+      setNumberTwo(false)
+      setOperator(buttonPressed)
+    }
+
+    if(numberOne) {
+      setOperator(buttonPressed)
+    }
+
+    
   }
 
   function calculateResult() {
+    if((numberOne && !numberTwo) || (numberOne && !operator)) {
+      setResultCalc(parseFloat(numberOne))
+      setNumberOne(false)
+      setNumberTwo(false)
+      setOperator(false)
+    }
+    
     if(numberOne && operator && numberTwo) {
-      setResultCalc(numberOne + numberTwo)
+      setResultCalc(parseFloat(numberOne) + parseFloat(numberTwo))
+      setNumberOne(false)
+      setNumberTwo(false)
+      setOperator(false)
     }
   }
+
+  useEffect(() => {
+    let show = ''
+
+    if(numberOne) {
+      show += numberOne
+    }
+
+    if(operator) {
+      show += operator
+    }
+
+    if(numberTwo) {
+      show += numberTwo
+    }
+
+    setShowDisplay(show.length > 0 ? show : '0')
+  }, [numberOne, operator, numberTwo])
 
   return (
     <View style={styles.container}>
@@ -50,7 +110,7 @@ export default function index() {
       
       <View style={styles.operation}>
         <View style={styles.operating}>
-          <Text style={styles.operatingText}>{ numberOne }</Text>
+          <Text style={styles.operatingText}>{ showDisplay }</Text>
         </View>
         <View style={styles.result}>
           <Text style={styles.resultText}>{ resultCalc }</Text>
@@ -182,7 +242,7 @@ export default function index() {
 
         <NeomorphBox style={styles.borderButtonOp}>
           <NeomorphBox inner style={styles.neuButtonOp}>
-            <TouchableOpacity onPress={ () => handleOperationButton("=") }>
+            <TouchableOpacity onPress={ () => calculateResult("=") }>
               <Text style={styles.numberText}>=</Text>
             </TouchableOpacity>
           </NeomorphBox>
