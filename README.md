@@ -12,6 +12,7 @@ Calculadora com funcionalidades simples, porém com um designer moderno utilizan
 
 ## :computer: Técnologias
 
+- [React Native](https://reactnative.dev/)
 - [Neumorphism Shadows](https://github.com/tokkozhin/react-native-neomorph-shadows)
 
 ## :iphone: Design de tela
