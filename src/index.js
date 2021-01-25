@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { NavigationContainer } from '@react-navigation/native'
 import { NeomorphBox } from 'react-native-neomorph-shadows'
 import { Feather } from '@expo/vector-icons'
-import DrawerMenu from './components/DrawerMenu'
 import styles from './styles'
 
-export default function index() {
+export default function index({ navigation }) {
   const [mathOperation, setMathOperation] = useState('')
   const [resultCalc, setResultCalc] = useState(0)
   const [history, setHistory] = useState([])
@@ -40,7 +37,7 @@ export default function index() {
           <NeomorphBox style={styles.neuMenu}>
             <NeomorphBox inner style={styles.borderButtonMenu}>
             <NeomorphBox style={styles.neuButtonMenu}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
                 <Feather name="menu" size={28} />
               </TouchableOpacity>
             </NeomorphBox>
