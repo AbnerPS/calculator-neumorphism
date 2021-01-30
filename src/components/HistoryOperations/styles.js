@@ -8,9 +8,26 @@ export default StyleSheet.create({
         paddingHorizontal: 24,
         paddingTop: Constants.statusBarHeight + 10
     },
+
+    header: {
+    },
+
+    content: {
+        borderTopColor: "#000",
+        marginTop: 16
+    },
     
-    textao: {
-        color: "#88c",
+    title: {
+        textAlign: "center",
         fontSize: 20
     },
+
+    operation: {
+        color: "#91a1bd",
+        fontSize: 20
+    },
+
+    result: {
+        fontSize: 20
+    }
 })

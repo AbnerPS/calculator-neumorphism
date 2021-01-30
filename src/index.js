@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { NeomorphBox } from 'react-native-neomorph-shadows'
 import { Feather } from '@expo/vector-icons'
+import { updateHistory } from './components/HistoryOperations/HistoryOperations'
 import styles from './styles'
 
 export default function index({ navigation }) {
@@ -33,6 +34,7 @@ export default function index({ navigation }) {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.header}>
           <NeomorphBox style={styles.neuMenu}>
             <NeomorphBox inner style={styles.borderButtonMenu}>
